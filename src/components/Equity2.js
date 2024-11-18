@@ -19,6 +19,11 @@ const Equity2 = ({ tabValue }) => {
         dividendDeclaredDate: ''
     });
 
+    const getCurrencySymbol = (currencyCode) => {
+        const currency = currencies.find((c) => c.code === currencyCode);
+        return currency ? currency.symbol : '';
+    };
+
     // Filter states
     const [filterName, setFilterName] = useState('');
     const [filterStartDate, setFilterStartDate] = useState('');
@@ -219,8 +224,12 @@ const Equity2 = ({ tabValue }) => {
                                         <TableCell>{row.isActive ? "true" : "false"}</TableCell>
                                         <TableCell>{row.pricingCurrency}</TableCell>
                                         <TableCell>{row.totalSharesOutstanding}</TableCell>
-                                        <TableCell>{row.openPrice}</TableCell>
-                                        <TableCell>{row.closePrice}</TableCell>
+                                        <TableCell>
+                                            {`${getCurrencySymbol(row.pricingCurrency)}${row.openPrice}`}
+                                        </TableCell>
+                                        <TableCell>
+                                            {`${getCurrencySymbol(row.pricingCurrency)}${row.closePrice}`}
+                                        </TableCell>
                                         <TableCell>{new Date(row.dividendDeclaredDate).toLocaleDateString()}</TableCell>
                                         <TableCell>{row.formPFCreditRating}</TableCell>
                                         <TableCell>
